@@ -59,15 +59,70 @@ require_once 'rules.php';
                         </div>
                     </form>
                     <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#changepassword-modal">
-                            Change Password
-                        </button>
+                        <?php if (empty(get_config('disable_changepassword'))) { ?>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#changepassword-modal">
+                                Change Password
+                            </button>
+                        <?php } ?>
                         <button type="button" class="btn btn-info" data-toggle="modal"
                                 data-target="#restorepassword-modal">
                             Restore Password
                         </button>
                     </div>
+                    <?php if (get_config('vote_system')) { ?>
+                        <div class="text-center" data-aos="fade-up" data-aos-delay="100" style="margin-top: 5px;">
+                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#vote-modal">
+                                Vote for us
+                            </button>
+                        </div>
+                        <div class="modal" id="vote-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Vote</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
+                                              method="post" target="_blank">
+                                            <?php if (get_config('battlenet_support')) { ?>
+                                                <div class="input-group">
+                                                    <span class="input-group">Email</span>
+                                                    <input type="email" class="form-control" placeholder="Email"
+                                                           name="account">
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class="input-group">
+                                                    <span class="input-group">Username</span>
+                                                    <input type="text" class="form-control" placeholder="Username"
+                                                           name="account">
+                                                </div>
+                                            <?php } ?>
+                                            <div class="text-center" style="margin-top: 10px;">
+                                                <?php
+                                                $vote_sites = get_config('vote_sites');
+                                                if (!empty($vote_sites)) {
+                                                    foreach ($vote_sites as $siteID => $vote_site) {
+                                                        $tmp_id = $siteID + 1;
+                                                        echo '<button type="submit" name="siteid" value="' . $tmp_id . '" style="border:none; background-color: transparent;"><img src="' . $vote_site['image'] . '"></button>';
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                     <div class="modal" id="restorepassword-modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -202,7 +257,7 @@ require_once 'rules.php';
                             echo "<p><span style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player - Online players : " . user::get_online_players_count($onerealm['realmid']) . ")</span></p><hr>";
                             $online_chars = user::get_online_players($onerealm['realmid']);
                             if (!is_array($online_chars)) {
-                                echo "<span style='color: #0d99e5;'>No have Online player.</span>";
+                                echo "<span style='color: #0d99e5;'>No players are currently online.</span>";
                             } else {
                                 echo '<table class="table table-striped"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th></tr></thead><tbody>';
                                 foreach ($online_chars as $one_char) {
@@ -328,7 +383,7 @@ require_once 'rules.php';
         </div>
     </section>
 <?php
-require_once 'faq.php'; 
-require_once 'contact.php'; 
-require_once 'footer.php'; 
+require_once 'faq.php';
+require_once 'contact.php';
+require_once 'footer.php';
 ?>

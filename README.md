@@ -1,8 +1,8 @@
-# Simple Register Page for TrinityCore/AzerothCore/AshamaneCore
+# Simple Register Page for TrinityCore/AzerothCore/AshamaneCore/CMangos
 
 With this script you can make a website for your game server.
 
-Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/ReyDonovan/AshamaneCoreLegacy/).
+Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/ReyDonovan/AshamaneCoreLegacy/), [CMangos](https://github.com/cmangos/).
 
 # Installation
 
@@ -13,6 +13,12 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
 
 ## Requirement : PHP >= 7.0
 
+Enable gd, soap, mbstring, pdo and pdo-mysql.
+
+# Debug
+
+If you got blank screen, You can enable `debug_mode` in config file.
+
 ## Features
 
  1. Register Page (Support Vanilla/TBC/WotLK/MoP/WoD/Legion/BFA)
@@ -22,9 +28,16 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
  5. Contact us page.
  6. Change Password (4/10/2019).
  7. Restore Password (5/31/2019).
+ 8. Vote System (4/03/2020).
 
 ## Changelogs
 
+ **1.9.5 (4/17/2020):**
+ 1. Register/Restore Password via SOAP. (Support CMangos)
+ 
+ **1.9.4 (4/03/2020):**
+ 1. Vote Added.
+ 
  **1.9.3 (4/02/2020):**
  1. Added a new template.
 
